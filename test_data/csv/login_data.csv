@@ -1,0 +1,4 @@
+username,password,expected_msg
+,admin123,Username cannot be empty
+Admin,,Password cannot be empty
+dummy,dummy,Invalid credentials

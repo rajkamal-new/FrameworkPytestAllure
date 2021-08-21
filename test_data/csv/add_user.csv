@@ -1,0 +1,10 @@
+role,emp_name,user_name,status,pwd,cnfm_pwd,exp_msg,scenario
+ESS,Aaliyah Haq,Aaliyah123f,Enabled,Aliyah@123,Aliyah@123,viewSystemUsers,pass
+ESS,Aaliyah Haq,Aaliyah123f,Enabled,Aliyah@123,Aliyah@123,Already exists,fail
+ESS,dummy,Aaliyah123f,Enabled,Aliyah@123,Aliyah@123,Employee does not exist,fail
+ESS,Aaliyah Haq,,Enabled,Aliyah@123,Aliyah@123,Required,fail
+ESS,Aaliyah Haq,dumm,Enabled,Aliyah@123,Aliyah@123,Should have at least 5 characters,fail
+ESS,Aaliyah Haq,dummy123,Enabled,,Aliyah@123,Required,fail
+ESS,Aaliyah Haq,dummy123,Enabled,Aliyah@123,Aliyah@124,Passwords do not match,fail
+ESS,Aaliyah Haq,dummy123,Enabled,Aliyah,Aliyah@124,Should have at least 8 characters,fail
+ESS,Aaliyah Haq,dummy123,Enabled,Aliyah@123,Aliyah,Please enter at least 8 characters.,fail

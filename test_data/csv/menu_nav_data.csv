@@ -1,0 +1,3 @@
+menu,url
+"Admin,User Management,Users",/index.php/admin/viewSystemUsers
+"Admin,Nationalities",/index.php/admin/nationality
