@@ -6,22 +6,24 @@ from pages.login_page import LoginPage
 from test_data.config.config import ADMIN
 from test_suites.common_methods import verify
 from utils import read_xl_data
+from utils import logg
 
 
 
 @pytest.mark.usefixtures("driver_manager")
 class TestLoginPage:
+    log = logg()
 
     @pytest.fixture(autouse=True)
     def load_login_page(self, driver_manager):
         self.lp = LoginPage(self.driver).load()
-        print("Loaded Login Page")
+        self.log.info("Loaded Login Page")
 
     @pytest.fixture()
     def delete_cookie(self):
         yield
         self.driver.delete_all_cookies()
-        print("Deleted cookies")
+        self.log.info("Deleted cookies")
 
     @pytest.mark.negative_test
     def test_1_login_pass(self, delete_cookie):

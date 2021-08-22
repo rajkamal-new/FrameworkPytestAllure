@@ -1,21 +1,38 @@
-from selenium.webdriver import Chrome, ActionChains
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver import  ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 
+from utils import logg
 
 class Page:
+
+    log = logg()
 
     def __init__(self, driver):
         self.driver = driver
         self._wait = WebDriverWait(self.driver, 15)
 
     def _find_element(self, locator):
-        return self._wait.until(EC.visibility_of_element_located(locator))
+        try:
+            element = self._wait.until(EC.visibility_of_element_located(locator))
+            self.log.debug(f"_find_element: {element}")
+            return element
+        except TimeoutException as e:
+            self.log.error(f"_find_element: {locator} - {e}")
+            raise e
+
 
     def _find_elements(self, locator):
-        return self._wait.until(EC.visibility_of_any_elements_located(locator))
+        try:
+            elements = self._wait.until(EC.visibility_of_any_elements_located(locator))
+            self.log.debug(f"_find_elements: {len(elements)}")
+            return elements
+        except TimeoutException as e:
+            self.log.error(f"_find_elements: {locator} - {e}")
+            raise e
+
 
     def _find_element_by_text(self, locator, text):
         elements = self._find_elements(locator)
@@ -29,10 +46,14 @@ class Page:
         element.click()
 
     def _input_text(self, locator, text):
-        self._find_element(locator).send_keys(text)
+        element = self._find_element(locator)
+        self.log.debug(f"_input_text: {locator} - text:{text}")
+        element.send_keys(text)
 
     def _get_text(self, locator):
-        return self._find_element(locator).text
+        text = self._find_element(locator).text
+        self.log.debug(f"_get_text: {locator} - text:{text}")
+        return text
 
     def _wait_for_page(self, url):
        return  self._wait.until(EC.url_contains(url))
